@@ -59,6 +59,7 @@ class App extends Component {
 	componentDidMount = async () => {
 		this.setState({
 			manager: await lottery.methods.manager().call(),
+			lastWinner: await lottery.methods.lastWinner().call(),
 			players: await lottery.methods.getPlayers().call(),
 			balance: await web3.eth.getBalance(lottery.options.address)
 		});
@@ -71,10 +72,7 @@ class App extends Component {
 				<p>This contract is managed by {this.state.manager}</p>
 				<p>Last winner is {this.state.lastWinner}</p>
 				<p>There are currently {this.state.players.length} people entered.</p>
-				<p>
-					Competing to win {web3.utils.fromWei(this.state.balance, "ether")}{" "}
-					ether!
-        </p>
+				<p>Competing to win {web3.utils.fromWei(this.state.balance, "ether")} ether!</p>
 				<hr />
 				<form onSubmit={this.onSubmit}>
 					<h4>Want to try your luck?</h4>
